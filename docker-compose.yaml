@@ -15,6 +15,9 @@ services:
     volumes:
       - .:/app
     entrypoint: "docker-entrypoint.sh"
+    depends_on:
+      - db
+      - db_init
 
   nginx:
     container_name: nginx
@@ -28,6 +31,20 @@ services:
       - 8080:80
     depends_on:
       - app
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    restart: always
+    tty: true
+    networks:
+      - fullcycle-node
+    volumes:
+      - ./docker/mysql/var:/var/lib/mysql
+    command: --innodb-use-native-aio=0
+    environment:
+      - MYSQL_DATABASE=fullcycle
+      - MYSQL_ROOT_PASSWORD=root
 
 networks:
   fullcycle-node:

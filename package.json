@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/danieltakahashi/fullcycle-node#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "node-random-name": "^1.0.1"
   }
 }
