@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  app:
+    container_name: app
+    command: npm start
+    build:
+      context: .
+      dockerfile: node/Dockerfile
+    networks:
+      - fullcycle-node
+    tty: true
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    entrypoint: "docker-entrypoint.sh"
+
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    restart: always
+    networks:
+      - fullcycle-node
+    ports:
+      - 8080:80
+    depends_on:
+      - app
+
+networks:
+  fullcycle-node:
+    driver: bridge
