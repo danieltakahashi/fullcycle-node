@@ -17,7 +17,6 @@ services:
     entrypoint: "docker-entrypoint.sh"
     depends_on:
       - db
-      - db_init
 
   nginx:
     container_name: nginx
