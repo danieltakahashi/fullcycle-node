@@ -3,7 +3,7 @@ version: '3.4'
 services:
   app:
     container_name: app
-    command: npm start
+    command: "npm start"
     build:
       context: .
       dockerfile: docker/node/Dockerfile
@@ -14,7 +14,8 @@ services:
       - 3000:3000
     volumes:
       - .:/app
-    entrypoint: "docker-entrypoint.sh"
+      - /app/node_modules
+    entrypoint: "dockerize -wait tcp://db:3306 -timeout 10s && docker-entrypoint.sh"
     depends_on:
       - db
 
